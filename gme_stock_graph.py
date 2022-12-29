@@ -1,17 +1,28 @@
 import matplotlib.pyplot as plt
+import warnings
 
 def make_graph(data, title):
     # Get the date and close price columns
     dates = data["Date"]
     close_prices = data["Close"]
 
-    # Create a figure and a subplot
-    fig, ax = plt.subplots()
+    # Suppress the warning
+    with warnings.catch_warnings():
+        warnings.filterwarnings("ignore", category=MatplotlibDeprecationWarning)
 
-    # Plot the close prices
-    ax.plot(dates, close_prices)
+        # Create a figure
+        fig = plt.figure(figsize=(8, 6), dpi=100)
 
-    # Set the title of the graph
-    ax.set_title(title)
-    
+        # Create a subplot
+        ax = fig.add_subplot(111)
+
+        # Plot the close prices
+        ax.plot(dates, close_prices)
+
+        # Set the title of the graph
+        ax.set_title(title)
+
+    # Show the figure
+    plt.show()
+
 make_graph(gme_data, "GameStop Stock Price")
